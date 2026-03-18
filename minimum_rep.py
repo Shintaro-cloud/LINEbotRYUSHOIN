@@ -6,6 +6,25 @@ app = Flask(__name__)
 
 CHANNEL_ACCESS_TOKEN = "eh5UPbWRqIs1yKwaw8jX6T8nb6ev5Kp7voYRc058+T6AYs7fiiRgUyvRi/je8spTf1BeWUdfHJBNmbIk337IvCSLFu/i2q2BBu8y3/QCZd9VdcQlrXmxV4/HFeOluMzpXgziPlf65m3JbGrIgtlHKQdB04t89/1O/w1cDnyilFU="
 
+sticker_responses = {
+    "826611625": "本は心の栄養なのですわ♪",
+    "826611626": "LINEやりながら勉強なんて嘘ですわ",
+    "826611627": "いい加減にしてくださいな。さっさと携帯しまって勉強してくださいな",
+    "826611628": "一人で悩むのはたいへんですわ。わたくしが話を聞いて差し上げますわ♪",
+    "826611629": "決してぼうりょくではありませんわ♪",
+    "826611630": "さすが四郎様！ごうそっきゅうですわ♪",
+    "826611631": "ふるすいんぐですわ♪",
+    "826611632": "細心の注意ですわ",
+    "826611633": "変な花...",
+    "826611634": "何を歌っているのですの？",
+    "826611635": "聞かせたい人がいるから上達するのですわ♪",
+    "826611636": "軽い運動は大事ですわ♪",
+    "826611637": "待っている間にお話しいたしませんか？",
+    "826611638": "やめられないのですわ...",
+    "826611639": "いやん、恥ずかしいですわ～",
+    "826611640": "嬉しいですが...わたくしには四郎様がおりますわ...お気持ちにはこたえられませんわ"
+}
+
 @app.route("/callback", methods=['POST'])
 def callback():
     body = request.json
@@ -14,19 +33,11 @@ def callback():
         if event['type'] == 'message':
             reply_token = event['replyToken']
             msg_type = event['message']['type']
+
             if msg_type == "sticker":
-                sticker_id = event['message']['stickerId']
-                package_id = event['message']['packageId']
-
-                # LINE上でID確認用
-                reply_message(reply_token, f"デバッグ: package_id={package_id}, sticker_id={sticker_id}")
-            #if msg_type == "sticker":
-            #    sticker_id = event['message']['stickerId']
-            #    package_id = event['message']['packageId']
-            #    print(f"スタンプ送信: package_id={package_id}, sticker_id={sticker_id}")
-
-                # とりあえず固定返信
-                reply_message(reply_token, "龍勝院ですわ。")
+                sticker_id = str(event['message']['stickerId'])
+                reply_text = sticker_responses.get(sticker_id, "龍勝院ですわ。")
+                reply_message(reply_token, reply_text)
             else:
                 reply_message(reply_token, "龍勝院ですわ。")
 
