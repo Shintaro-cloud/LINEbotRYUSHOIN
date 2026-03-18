@@ -36,10 +36,10 @@ def callback():
 
             if msg_type == "sticker":
                 sticker_id = str(event['message']['stickerId'])
-                reply_text = sticker_responses.get(sticker_id, "龍勝院ですわ。")
+                reply_text = sticker_responses.get(sticker_id, "どうも、龍勝院ですわ。")
                 reply_message(reply_token, reply_text)
             else:
-                reply_message(reply_token, "龍勝院ですわ。")
+                reply_message(reply_token, "どうも、龍勝院ですわ。")
 
     return 'OK'
 
