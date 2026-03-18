@@ -13,12 +13,19 @@ def callback():
     for event in body['events']:
         if event['type'] == 'message':
             reply_token = event['replyToken']
+            msg_type = event['message']['type']
 
-            # とりあえず固定返信
-            reply_message(reply_token, "龍勝院ですわ。")
+            if msg_type == "sticker":
+                sticker_id = event['message']['stickerId']
+                package_id = event['message']['packageId']
+                print(f"スタンプ送信: package_id={package_id}, sticker_id={sticker_id}")
+
+                # とりあえず固定返信
+                reply_message(reply_token, "龍勝院ですわ。")
+            else:
+                reply_message(reply_token, "龍勝院ですわ。")
 
     return 'OK'
-
 
 def reply_message(reply_token, text):
     headers = {
