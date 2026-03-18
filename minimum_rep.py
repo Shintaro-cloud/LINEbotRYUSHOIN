@@ -14,11 +14,16 @@ def callback():
         if event['type'] == 'message':
             reply_token = event['replyToken']
             msg_type = event['message']['type']
-
             if msg_type == "sticker":
                 sticker_id = event['message']['stickerId']
                 package_id = event['message']['packageId']
-                print(f"スタンプ送信: package_id={package_id}, sticker_id={sticker_id}")
+
+                # LINE上でID確認用
+                reply_message(reply_token, f"デバッグ: package_id={package_id}, sticker_id={sticker_id}")
+            #if msg_type == "sticker":
+            #    sticker_id = event['message']['stickerId']
+            #    package_id = event['message']['packageId']
+            #    print(f"スタンプ送信: package_id={package_id}, sticker_id={sticker_id}")
 
                 # とりあえず固定返信
                 reply_message(reply_token, "龍勝院ですわ。")
